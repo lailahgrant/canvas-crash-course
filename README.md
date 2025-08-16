@@ -92,7 +92,7 @@ ctx.arc(100, 100, 50, 0, Math.PI * 2);
 ctx.stroke(); //draw the outline of the circle
 ```
 
-- [x] Interactive - Draw a circle each time click somewhere on the canvas
+- [x] **Interactive - Draw a circle each time click somewhere on the canvas**
 
 ```javascript
 const canvas = document.getElementById('canvas1');
