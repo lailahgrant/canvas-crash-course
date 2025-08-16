@@ -24,13 +24,15 @@ window.addEventListener('resize', function () {
 
 /**
  * INTERACTIVE CANVAS
- * - Draw a rectangle everytime the mouse is clicked on the canvas
+ * - Draw a circle everytime the mouse is clicked on the canvas
+ * - Mouse move event to track mouse position: code gets triggered each time a moves over the canvas 
  */
 const mouse = {
     // x and y coordinates of the mouse so that they're global all over the program
     x: null,
     y: null,
 }
+
 canvas.addEventListener('click', function (event) {
     // Everytime the mouse is clicked, the x and y coordinates of the mouse are updated
     mouse.x = event.x;
@@ -42,11 +44,19 @@ canvas.addEventListener('click', function (event) {
     drawCircle();
 });
 
+//create a simple paint brush in canvas
+canvas.addEventListener('mousemove', function (event) {
+    //update the mouse coordinates on mouse move
+    mouse.x = event.x;
+    mouse.y = event.y;
+    console.log(mouse.x, mouse.y);
+    drawCircle();
+});
+
 //Make a function to make reusable 
 function drawCircle() {
     ctx.fillStyle = 'white';
     ctx.beginPath();
     ctx.arc(mouse.x, mouse.y, 50, 0, Math.PI * 2);
     ctx.fill();
-
 }
