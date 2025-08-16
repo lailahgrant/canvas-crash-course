@@ -119,8 +119,8 @@ window.addEventListener('resize', function () {
  */
 const mouse = {
     // x and y coordinates of the mouse so that they're global all over the program
-    x: null,
-    y: null,
+    x: undefined,
+    y: undefined,
 }
 canvas.addEventListener('click', function (event) {
     // Everytime the mouse is clicked, the x and y coordinates of the mouse are updated
@@ -153,8 +153,8 @@ function drawCircle() {
  */
 const mouse = {
     // x and y coordinates of the mouse so that they're global all over the program
-    x: null,
-    y: null,
+    x: undefined,
+    y: undefined,
 }
 
 //create a simple paint brush in canvas
