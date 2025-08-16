@@ -47,6 +47,8 @@ canvas.addEventListener('click', function (event) {
     console.log(mouse.x);
     mouse.y = event.y;
 
+    particlesArray.push(new Particle());
+
     //call the function
     //drawCircle();
 });
@@ -85,6 +87,9 @@ canvas.addEventListener('mousemove', function (event) {
  * 
  * - Make particles of random size
  * - Make particles shrink as they move around
+ * 
+ * - New particles to appear on the mouse and fly away with it
+ * - Create Particles whenever a canvas is clicked
 */
 
 //Each particle will be one circle
@@ -95,13 +100,14 @@ class Particle {
 
         /* * Set the x and y coordinates to the position of the cursor:-
         * - on page load - x and y are undefined as there's no mouse activity on canvas
-        // this.x = mouse.x;
-        // this.y = mouse.y;
-        */
+       */
+        this.x = mouse.x;
+        this.y = mouse.y;
+
 
         //set x and y to be a random number on the canvas on width and height respectively
-        this.x = Math.random() * canvas.width; // x is between 0 and canvas width
-        this.y = Math.random() * canvas.height; // y is between 0 and canvas height
+        //this.x = Math.random() * canvas.width; // x is between 0 and canvas width
+        //this.y = Math.random() * canvas.height; // y is between 0 and canvas height
 
         //particles to be different sizes
         this.size = Math.random() * 5 + 1; //random size between 1 and 6
@@ -139,7 +145,8 @@ class Particle {
 
 }
 
-//function that will call draw() run many times - LOOP
+/*
+//CREATE PARTICLES function that will call draw() run many times - LOOP
 function init() {
     //100 randomised particles with random sizes and speed
     for (let i = 0; i < 100; i++) {
@@ -152,6 +159,7 @@ function init() {
 
 init();
 console.log(particlesArray);
+*/
 
 /**
  * - Create a function
