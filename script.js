@@ -19,10 +19,17 @@ window.addEventListener('resize', function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    ctx.fillStyle = 'white'; // Sets the fill color for shapes drawn on the canvas.
-    ctx.fillRect(10, 10, 150, 50);
-
 });
 
-ctx.fillStyle = 'white'; // Sets the fill color for shapes drawn on the canvas.
-ctx.fillRect(10, 10, 150, 50);
+ctx.fillStyle = 'white';
+ctx.strokeStyle = 'white';
+ctx.lineWidth = 5; //set the width of the stroke
+// Draw a circle
+//arc() is used to create a circle or an arc or semicircle
+
+// beginPath() - to drawlines, arcs, or curves.
+ctx.beginPath();
+ctx.arc(100, 100, 50, 0, Math.PI * 2);
+//Math.PI * 2 converts to 360 degrees - which is the entire circle.
+//ctx.fill(); //fill the circle with white color
+ctx.stroke(); //draw the outline of the circle
