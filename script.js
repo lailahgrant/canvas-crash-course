@@ -21,15 +21,32 @@ window.addEventListener('resize', function () {
 
 });
 
-ctx.fillStyle = 'white';
-ctx.strokeStyle = 'white';
-ctx.lineWidth = 5; //set the width of the stroke
-// Draw a circle
-//arc() is used to create a circle or an arc or semicircle
 
-// beginPath() - to drawlines, arcs, or curves.
-ctx.beginPath();
-ctx.arc(100, 100, 50, 0, Math.PI * 2);
-//Math.PI * 2 converts to 360 degrees - which is the entire circle.
-//ctx.fill(); //fill the circle with white color
-ctx.stroke(); //draw the outline of the circle
+/**
+ * INTERACTIVE CANVAS
+ * - Draw a rectangle everytime the mouse is clicked on the canvas
+ */
+const mouse = {
+    // x and y coordinates of the mouse so that they're global all over the program
+    x: null,
+    y: null,
+}
+canvas.addEventListener('click', function (event) {
+    // Everytime the mouse is clicked, the x and y coordinates of the mouse are updated
+    mouse.x = event.x;
+    console.log(event);
+    console.log(mouse.x);
+    mouse.y = event.y;
+
+    //call the function
+    drawCircle();
+});
+
+//Make a function to make reusable 
+function drawCircle() {
+    ctx.fillStyle = 'white';
+    ctx.beginPath();
+    ctx.arc(mouse.x, mouse.y, 50, 0, Math.PI * 2);
+    ctx.fill();
+
+}
