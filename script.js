@@ -63,7 +63,7 @@ class Particle {
 
 
         //particles to be different sizes
-        this.size = Math.random() * 5 + 1; //random size between 1 and 6
+        this.size = Math.random() * 15 + 1; //random size between 1 and 16
         this.speedX = Math.random() * 3 - 1.5; //random speed between -1.5 and 1.5
         this.speedY = Math.random() * 3 - 1.5; //random speed between -1.5 and 1.5
     }
@@ -79,7 +79,7 @@ class Particle {
     draw() {
         ctx.fillStyle = 'white';
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 50, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
     }
 

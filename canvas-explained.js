@@ -122,7 +122,10 @@ class Particle {
         ctx.fillStyle = 'white';
         ctx.beginPath();
         //all the particles are the same size - 50 (hard coded value)
-        ctx.arc(this.x, this.y, 50, 0, Math.PI * 2);
+        //ctx.arc(this.x, this.y, 50, 0, Math.PI * 2);
+
+        //dynamic random size of the particle
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
     }
 
