@@ -82,6 +82,9 @@ canvas.addEventListener('mousemove', function (event) {
  * - Properties of the object are defined in the mandatory constructor method that each class needs to have.
  * - Behaviour of these objects is defined in methods that we can add to the class. 
  * - Methods are functions in an object
+ * 
+ * - Make particles of random size
+ * - Make particles shrink as they move around
 */
 
 //Each particle will be one circle
@@ -116,6 +119,11 @@ class Particle {
     update() {
         this.x += this.speedX; // positive move to the right, negative move to the left along x-axis
         this.y += this.speedY; // positive move down, negative move up along y-axis
+
+        // * - Make particles shrink as they move around
+        if (this.size > 0.2) {
+            this.size -= 0.1;
+        }
     }
 
     draw() {
@@ -156,6 +164,13 @@ function handleParticles() {
         //cycle through the methods
         particlesArray[i].update();
         particlesArray[i].draw();
+
+        //As I shrink particles, remove particles of radius 0.3 is less or equal to negatives
+        if (particlesArray[i].size <= 0.3) {
+            //remove those particle : use splice() built-in 
+            particlesArray.splice(i, 1); //pass the arguments to remove
+            i--; //
+        }
     }
 }
 
@@ -163,6 +178,12 @@ function handleParticles() {
 function animate() {
     //clear old paint from the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    //call function
+    handleParticles(); //random circles are formed all over the canvas
+
+    //see how particles are removed
+    console.log(particlesArray.length);
 
     //drawCircle();
 

@@ -74,6 +74,11 @@ class Particle {
     update() {
         this.x += this.speedX; // positive move to the right, negative move to the left along x-axis
         this.y += this.speedY; // positive move down, negative move up along y-axis
+
+        // * - Make particles shrink as they move around
+        if (this.size > 0.2) {
+            this.size -= 0.1;
+        }
     }
 
     draw() {
@@ -102,7 +107,19 @@ function handleParticles() {
         //cycle through the methods
         particlesArray[i].update();
         particlesArray[i].draw();
+
+        //As i Shrink partcles: remove particles of radius 0.3 is less or equal to negatives
+        if (particlesArray[i].size <= 0.3) {
+            //remove those particle : use splice() built-in 
+            particlesArray.splice(i, 1); //pass the arguments to remove
+
+            //see how particles are removed one by one to 0
+            console.log(particlesArray.length);
+
+            i--; //
+        }
     }
+
 }
 
 
