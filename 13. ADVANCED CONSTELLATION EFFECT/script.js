@@ -148,7 +148,8 @@ function handleParticles() {
 
                 //dynamic size of line: lines are the same size as the raduis of the circles
                 //ctx.lineWidth = particlesArray[i].size;
-                ctx.lineWidth = particlesArray[i].size / 10;
+                //ctx.lineWidth = particlesArray[i].size / 10;
+                ctx.lineWidth = 0.2; //make the lines thinner
 
                 //starting point: moveTo() expect x and y cordinates
                 ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
