@@ -9,6 +9,25 @@ canvas.height = window.innerHeight;
 //Global particles array (data structure to hold particle objects created by Particle class)
 const particlesArray = [];
 
+//CREATE A GLOBAL VARIABLE hue
+let hue = 0; //chnages as we cycle through colour spectrum
+/**
+ * HSL - Hue Saturation Lightness
+ * - An alternative way to declare colour.
+ * - hsl(1, 100%, 50%);
+ * - HSL: Hue is the degree on the colour wheel from 0 to 360 degrees.
+ * - 0 is Red, hsl(0, 100%, 50%)
+ * - 120 is Green hsl(120, 100%, 50%)
+ * - 240 is Blue hsl(240, 100%, 50%)
+ * 
+ * - HSL: Saturation is the percentage value
+ * - 0% is gray and 100% is full colour
+ * 
+ * - HSL: Lighness is also percentage
+ * - 0% is black
+ * - 100% is white
+ * - 50% is full colour, not affected by dark or light
+ */
 
 
 /*
@@ -47,11 +66,25 @@ canvas.addEventListener('click', function (event) {
     console.log(mouse.x);
     mouse.y = event.y;
 
-    particlesArray.push(new Particle());
+
+    /**
+     * CREATE FUNCTION IN A DIFFERENT WAY
+     * WILL NOT USE init()
+     * 
+     * Whenever a certain place on the canvas is created, CREATE PARTICLES like a PArticle Fireworks
+     * Create a new object in the click event listener in the particle array
+     * 
+     * CREAte more than one particle on click
+     * - Use a for loop
+     */
+    for (let i = 0; i < 10; i++) {
+        particlesArray.push(new Particle());
+    }
 
     //call the function
     //drawCircle();
 });
+
 
 //create a simple paint brush in canvas
 canvas.addEventListener('mousemove', function (event) {
@@ -60,6 +93,15 @@ canvas.addEventListener('mousemove', function (event) {
     mouse.y = event.y;
     //console.log(mouse.x, mouse.y);
     //drawCircle();
+
+
+    /**
+     * CREATE A TRAIL OF PARTICLES WHENEVER MOUSE MOVES OVER CANVAS
+     */
+    for (let i = 0; i < 10; i++) {
+        particlesArray.push(new Particle());
+    }
+
 });
 
 //Make a function to make reusable 
@@ -117,6 +159,14 @@ class Particle {
         //these speeds added together will create a a vector movement (direction and speed)
         this.speedX = Math.random() * 3 - 1.5; //random speed between -1.5 and 1.5
         this.speedY = Math.random() * 3 - 1.5; //random speed between -1.5 and 1.5
+
+        /**
+         * RAINBOW EFFECT TRAIL PARTICLE
+         * 
+         * - Assign particles a colour when they first appear and remember that color
+         * - create colour property and assign it to the dynamic hue
+         */
+        this.color = 'hsl(' + hue + ', 100%, 50%)';
     }
 
     //Behaviour: method to draw the particle
@@ -133,7 +183,13 @@ class Particle {
     }
 
     draw() {
-        ctx.fillStyle = 'white';
+        //ctx.fillStyle = 'white';
+
+        //concatenate the dynamic colour to the SL colours
+        //ctx.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
+
+        //create a dynamic color reference from the property
+        ctx.fillStyle = this.color;
         ctx.beginPath();
         //all the particles are the same size - 50 (hard coded value)
         //ctx.arc(this.x, this.y, 50, 0, Math.PI * 2);
@@ -146,6 +202,7 @@ class Particle {
 }
 
 /*
+* init() Runs on the first page load & creates 100 particles
 //CREATE PARTICLES function that will call draw() run many times - LOOP
 function init() {
     //100 randomised particles with random sizes and speed
@@ -160,6 +217,8 @@ function init() {
 init();
 console.log(particlesArray);
 */
+
+
 
 /**
  * - Create a function
@@ -177,7 +236,8 @@ function handleParticles() {
         if (particlesArray[i].size <= 0.3) {
             //remove those particle : use splice() built-in 
             particlesArray.splice(i, 1); //pass the arguments to remove
-            i--; //
+            console.log(particlesArray.length);
+            i--; //to cater for the array when one item is removed
         }
     }
 }
@@ -185,10 +245,25 @@ function handleParticles() {
 // interactive animation
 function animate() {
     //clear old paint from the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    /**
+     * **CREATE A TRAIL OF PARTICLES WHENEVER MOUSE MOVES OVER CANVAS**
+     * To make  a big trail of particles, remove the `ctx.clearRect(0, 0, canvas.width, canvas.height);` from the `animate()`.
+     * Make the `clearRect()` fade away slowly by:-
+     * Adding a semi-transparent rectangle on top of canvas as follows.
+     */
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'rgba(0,0,0, .05)';
+    //ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
 
     //call function
     handleParticles(); //random circles are formed all over the canvas
+
+    //increase hue by one for every animation 
+    //change the speed at which colours change from hue++ to hue+=5
+    //hue++;
+    hue += 5;
 
     //see how particles are removed
     console.log(particlesArray.length);

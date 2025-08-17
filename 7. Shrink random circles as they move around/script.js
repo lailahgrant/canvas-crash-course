@@ -38,8 +38,9 @@ canvas.addEventListener('click', function (event) {
     console.log(mouse.x);
     mouse.y = event.y;
 
-    //call the function
-    //drawCircle();
+    // whenever mouse is clicked, random sized circles show 
+    init();
+
 });
 
 //create a simple paint brush in canvas
@@ -48,7 +49,7 @@ canvas.addEventListener('mousemove', function (event) {
     mouse.x = event.x;
     mouse.y = event.y;
     console.log(mouse.x, mouse.y);
-    //drawCircle();
+
 });
 
 

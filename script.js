@@ -6,6 +6,8 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const particlesArray = [];
 
+let hue = 0;
+
 console.log(ctx);
 
 window.addEventListener('resize', function () {
@@ -37,6 +39,14 @@ canvas.addEventListener('click', function (event) {
 
     //call the function
     //drawCircle();
+
+    /**
+     * CREATE PARTICLE FIREWORKS ON CLICK
+     */
+    for (let i = 0; i < 5; i++) {
+        particlesArray.push(new Particle());
+    }
+
 });
 
 //create a simple paint brush in canvas
@@ -46,6 +56,14 @@ canvas.addEventListener('mousemove', function (event) {
     mouse.y = event.y;
     console.log(mouse.x, mouse.y);
     //drawCircle();
+
+    /**
+     * CREATE PARTICLE TRAIL ON MOUSE OVER CANVAS
+     * - To make  a big trail of particles, remove the `ctx.clearRect(0, 0, canvas.width, canvas.height);` from the `animate()`.
+     */
+    for (let i = 0; i < 5; i++) {
+        particlesArray.push(new Particle());
+    }
 });
 
 
@@ -57,15 +75,22 @@ canvas.addEventListener('mousemove', function (event) {
 class Particle {
     constructor() {
 
+        this.x = mouse.x;
+        this.y = mouse.y;
+
+        /*
         // x and y postitons to be random on the canvas respectively
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-
+        */
 
         //particles to be different sizes
         this.size = Math.random() * 15 + 1; //random size between 1 and 16
         this.speedX = Math.random() * 3 - 1.5; //random speed between -1.5 and 1.5
         this.speedY = Math.random() * 3 - 1.5; //random speed between -1.5 and 1.5
+
+        //colour property to dynamic hue
+        this.color = 'hsl(' + hue + ', 100%, 50%)';
     }
 
     //Behaviour: method to draw the particle
@@ -82,7 +107,11 @@ class Particle {
     }
 
     draw() {
-        ctx.fillStyle = 'white';
+        //ctx.fillStyle = 'white';
+        //concatenate the dynamic colour to the SL colours
+        //ctx.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
+
+        ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -126,10 +155,19 @@ function handleParticles() {
 // interactive animation
 function animate() {
     //clear old paint from the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    /**
+    * - ADD ctx.fillStyle = 'rgba(0,0,0,.1)' - it'll form some crystal like particles with good gray-like gradient fireworks like
+    */
+    ctx.fillStyle = 'rgba(0,0,0,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     //call function
     handleParticles(); //random circles are formed all over the canvas
+
+    //change colour as you increment (increase the speed at which colours change)
+    hue += 5;
 
     //drawCircle();
 
