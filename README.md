@@ -286,6 +286,7 @@ animate();
 
 - [x] **RANDOMIZED CIRCLES**
  * Randomized circles that interact with mouse differently
+ * Random circles appear on canvas each time the canvas is clicked
  * Create a set of js objects
  * Each object will have it's own `x` and `y` coordinates and own size properties
   
